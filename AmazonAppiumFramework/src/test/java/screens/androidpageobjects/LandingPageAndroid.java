@@ -78,6 +78,21 @@ public class LandingPageAndroid extends ScreenBase {
     By finishAppTourBtn = By.id("com.polaroid.universalapp:id/textViewFinishAppTour");
     By EmailValidation = By.id("com.kodak.steptouch:id/textinput_error");
     By PassValidation = By.xpath("/hierarchy/android.widget.Toast");
+    By ForgetPass = By.id("com.kodak.steptouch:id/fragment_login_forgot_password");
+    By ForgetPassField = By.id("com.kodak.steptouch:id/activity_forgot_password_email");
+    By InvalidPassfieldmessage = By.id("com.kodak.steptouch:id/textinput_error");
+    By ForgetPassSend = By.id("com.kodak.steptouch:id/activity_forgot_password_send");
+    By SuccessForgetpassTile = By.id("com.kodak.steptouch:id/activity_password_sent_title");
+    By SuccessForgetpassText = By.id("com.kodak.steptouch:id/activity_password_sent_text");
+
+    By Signup_login_page = By.id("com.kodak.steptouch:id/fragment_login_go_to_signup");
+    By FullName = By.id("com.kodak.steptouch:id/fragment_signup_full_name");
+    By DateOfBirth =By.id("com.kodak.steptouch:id/fragment_signup_birth");
+    By EmailSignup = By.id("com.kodak.steptouch:id/fragment_signup_birth");
+    By Password = By.id("com.kodak.steptouch:id/fragment_signup_password");
+    By SignupBtn = By.id("com.kodak.steptouch:id/fragment_signup_create_account");
+
+
     public void tap_on_ill1() {
     		driver.findElement(Ill_Btn).click();
     		}
@@ -94,19 +109,10 @@ public class LandingPageAndroid extends ScreenBase {
     	 return driver.findElement(Login_btn).isDisplayed();
     	
     }
-    public void VerifyLoginBtn() {
-    	
-    	
-		
-	}
-
-   
     public void tapContinueBtn() {
         driver.findElement(continueBtn).click();
     }
 
-    
-    
     //Snaptouch
     
     public void enterNumberOrEmail() {
@@ -213,18 +219,14 @@ public class LandingPageAndroid extends ScreenBase {
     	
     	driver.findElement(finishAppTour).click();
     }
-    
-    
     public void verify_Finishappbtn_text() {
     	
     	String finishBtn = driver.findElement(finishAppTour).getText();
     	assertEquals(finishBtn, "Finish App Tour");
     }
-    
     public boolean verify_FinishBtn_isdisplay() {
     	return driver.findElement(finishAppTour).isDisplayed();
     }
-    
 	public void Start_App_tour() {
 		driver.findElement(startAppTour).click();
 	
@@ -248,11 +250,50 @@ public class LandingPageAndroid extends ScreenBase {
         	 driver.findElement(Photo_media_permission_class).click();
         }
     }
+    public void SignupBtnLogin(){
+        driver.findElement(Signup_login_page).click();
+    }
+    public void VerfySignupBtnLogin(){
+        String SignupbtnLogin = driver.findElement(Signup_login_page).getText();
+        System.out.println("Sigup on login page : "+SignupbtnLogin);
+        assertEquals(SignupbtnLogin, "Sign up");
+    }
     public void gallery_Page() {
     	
       driver.findElement(gallery_page_click).click();
     	
     }
-	
+    public void forget_password(){
+        driver.findElement(ForgetPass).click();
+        driver.findElement(ForgetPassField).sendKeys(USERNAME);
+        driver.findElement(ForgetPassSend).click();
+    }
+
+
+    public void verify_forgetpasswordbtn(){
+
+        driver.findElement(ForgetPass).isDisplayed();
+    }
+    public void forget_password_successful(){
+
+        String SuccessForgetPasstitle = driver.findElement(SuccessForgetpassTile).getText();
+        assertEquals(SuccessForgetPasstitle, "Got It!");
+        String SuccessForgetPassText = driver.findElement(SuccessForgetpassText).getText();
+        assertEquals(SuccessForgetPassText,"If this email address exists, you will get an email shortly");
+    }
+    public void forget_passwordInvaild(){
+        driver.findElement(ForgetPass).click();
+        driver.findElement(ForgetPassField).sendKeys(INUSERNAME);
+        driver.findElement(ForgetPassSend).click();
+    }
+
+    public void verify_Invalid_ForgetEmail(){
+        String invalidPassEmail = driver.findElement(InvalidPassfieldmessage).getText();
+        assertEquals(invalidPassEmail,"Please enter a valid email");
+    }
+    public void CreatAcccount(){
+
+    }
+
 
 }

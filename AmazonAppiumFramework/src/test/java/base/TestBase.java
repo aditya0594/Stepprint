@@ -25,11 +25,7 @@ public class TestBase {
     	
     	 //configuration items to change the look and feel
          //add content, manage tests etc
-     
-    
-    
-    	 
-    	  
+
         pageObjectConfig();
         System.out.println("Setup TestCase");
 
