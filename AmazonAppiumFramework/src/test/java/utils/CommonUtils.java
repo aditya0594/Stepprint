@@ -16,6 +16,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class CommonUtils {
 
+
     DesiredCapabilities caps = new DesiredCapabilities();
     String path;
     public AppiumDriver<MobileElement> driver;
@@ -46,7 +47,7 @@ public class CommonUtils {
 	
         driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), caps);
         caps.setCapability(MobileCapabilityType.AUTOMATION_NAME,AutomationName.ANDROID_UIAUTOMATOR2);
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.MINUTES);
 
     }
 

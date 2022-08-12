@@ -3,8 +3,14 @@ package screens.androidpageobjects;
 import static org.testng.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.touch.TouchActions;
@@ -30,6 +36,7 @@ public class LandingPageAndroid extends ScreenBase {
     String INUSERNAME ="";
     String INUPASSWORD = "";
 
+    String Name ="";
     public LandingPageAndroid() {
         try {
             Properties properties = CommonUtils.read_properties();
@@ -37,13 +44,15 @@ public class LandingPageAndroid extends ScreenBase {
             PASSWORD = properties.getProperty("password");
             INUSERNAME =(String) properties.get("invalidemail");
             INUPASSWORD =(String) properties.get("invalidpassword");
-            
+           // Name= (String) Properties.get("name");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    By Login_btn = By.id("com.kodak.steptouch:id/fragment_signup_go_to_login");
-    By Login_email = By.id("com.kodak.steptouch:id/fragment_login_email");
+    By Login_btn = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[3]/android.widget.TextView[2]");
+
+
+    By Login_email = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.FrameLayout/android.widget.EditText");
     By Login_password = By.id("com.kodak.steptouch:id/fragment_login_password");
     By submit_Login_btn = By.id("com.kodak.steptouch:id/fragment_login_do_login");
     By term_condition_btn= By.id("com.kodak.steptouch:id/termsConditonButton");
@@ -62,7 +71,7 @@ public class LandingPageAndroid extends ScreenBase {
     By Photo_media_permission_id = By.id("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
     By Photo_media_permission_class = By.className("android.widget.Button");
     By Photo_media_permission_xpath = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout[2]/android.widget.Button[1]");
-    By gallery_page_click = By.xpath("com.polaroid.universalapp:id/recyclerViewMainGalley");
+    By gallery_page_click = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/androidx.viewpager.widget.ViewPager/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.LinearLayout[2]");
     
  
     		
@@ -72,10 +81,12 @@ public class LandingPageAndroid extends ScreenBase {
     By Ill_Btn = By.id("com.kodak.steptouch:id/ill_do_it_later_button");
     By sign_in_button = By.id("in.amazon.mShop.android.shopping:id/sign_in_button");
     By ap_email_login = By.xpath("//*[@resource-id='ap_email_login']");
-    By continueBtn = By.xpath("//*[@resource-id='continue']");
+
     By ap_password = By.xpath("//*[@resource-id='ap_password']");
     By signInSubmit = By.xpath("//*[@resource-id='signInSubmit']");
     By finishAppTourBtn = By.id("com.polaroid.universalapp:id/textViewFinishAppTour");
+
+
     By EmailValidation = By.id("com.kodak.steptouch:id/textinput_error");
     By PassValidation = By.xpath("/hierarchy/android.widget.Toast");
     By ForgetPass = By.id("com.kodak.steptouch:id/fragment_login_forgot_password");
@@ -84,15 +95,18 @@ public class LandingPageAndroid extends ScreenBase {
     By ForgetPassSend = By.id("com.kodak.steptouch:id/activity_forgot_password_send");
     By SuccessForgetpassTile = By.id("com.kodak.steptouch:id/activity_password_sent_title");
     By SuccessForgetpassText = By.id("com.kodak.steptouch:id/activity_password_sent_text");
-
+    By continueBtn = By.xpath("//*[@resource-id='continue']");
     By Signup_login_page = By.id("com.kodak.steptouch:id/fragment_login_go_to_signup");
     By FullName = By.id("com.kodak.steptouch:id/fragment_signup_full_name");
     By DateOfBirth =By.id("com.kodak.steptouch:id/fragment_signup_birth");
     By EmailSignup = By.id("com.kodak.steptouch:id/fragment_signup_birth");
     By Password = By.id("com.kodak.steptouch:id/fragment_signup_password");
     By SignupBtn = By.id("com.kodak.steptouch:id/fragment_signup_create_account");
-
-
+    By CreateAccount = By.id("com.kodak.steptouch:id/fragment_signup_title_textview");
+    By Tap_on_signin_layout = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout");
+    By Gmail_first_email =By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/androidx.drawerlayout.widget.DrawerLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.ScrollView/android.view.ViewGroup/android.widget.FrameLayout/android.support.v7.widget.RecyclerView/android.view.ViewGroup[1]");
+    By image_count = By.xpath("//android.widget.LinearLayout[@resource-id='com.kodak.steptouch:id/relativeLayoutItem']");
+    By Gmail_email_restBtn = By.xpath("//android.view.View[@content-desc=\"Reset password →\"]");
     public void tap_on_ill1() {
     		driver.findElement(Ill_Btn).click();
     		}
@@ -101,7 +115,9 @@ public class LandingPageAndroid extends ScreenBase {
     
     }
   
-    public void tapSignInOnLandingPage() {
+    public void tapSignInOnLandingPage(){
+
+        //driver.findElement(Tap_on_signin_layout).click();
         driver.findElement(Login_btn).click();
         
     }
@@ -116,6 +132,7 @@ public class LandingPageAndroid extends ScreenBase {
     //Snaptouch
     
     public void enterNumberOrEmail() {
+
         driver.findElement(Login_email).sendKeys(USERNAME);
     }
 
@@ -258,7 +275,7 @@ public class LandingPageAndroid extends ScreenBase {
         System.out.println("Sigup on login page : "+SignupbtnLogin);
         assertEquals(SignupbtnLogin, "Sign up");
     }
-    public void gallery_Page() {
+    public void gallery_Page_Tap() {
     	
       driver.findElement(gallery_page_click).click();
     	
@@ -289,11 +306,46 @@ public class LandingPageAndroid extends ScreenBase {
 
     public void verify_Invalid_ForgetEmail(){
         String invalidPassEmail = driver.findElement(InvalidPassfieldmessage).getText();
+        System.out.println("Message"+invalidPassEmail);
         assertEquals(invalidPassEmail,"Please enter a valid email");
     }
-    public void CreatAcccount(){
+
+    public void SignupForm(){
+        driver.findElement(FullName).sendKeys("Name");
 
     }
+
+    public void switchapp(){
+
+        String appPackage="com.google.android.gm";
+        String appActivity="com.google.android.gm.ui.MailActivityGmail";
+        Activity activity = new Activity(appPackage, appActivity);
+        activity.setStopApp(true);
+        ((AndroidDriver<AndroidElement>) driver).startActivity(activity);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.findElement(Gmail_first_email).click();
+        String ResetBtnText = driver.findElement(Gmail_email_restBtn).getText();
+        assertEquals(ResetBtnText,"ResetBtnText");
+
+    }
+    public void gmail_forget_verify() throws InterruptedException {
+
+
+    }
+    public void image(){
+        List<WebElement> count_images =  driver.findElements(image_count);
+        System.out.println("Image count   : "+ count_images);
+
+
+    }
+    public void generateRandomString() {
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(1000);
+        System.out.println(randomInt);
+
+    }
+
+
 
 
 }
