@@ -8,35 +8,29 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.touch.TouchActions;
-import org.openqa.selenium.support.FindAll;
-import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
-import org.testng.asserts.Assertion;
 
 import base.ScreenBase;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.MobileDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.WaitOptions;
-import net.bytebuddy.matcher.BooleanMatcher;
 import utils.CommonUtils;
 
 public class LandingPageAndroid extends ScreenBase {
 
+    private static
+
+    String FIRSTNAME ="";
     String USERNAME = "";
     String PASSWORD = "";
     String INUSERNAME ="";
     String INUPASSWORD = "";
 
-    String Name ="";
+    String Month = "";
+    String DAY = "";
+    String YEAR = "";
     public LandingPageAndroid() {
         try {
             Properties properties = CommonUtils.read_properties();
@@ -44,6 +38,10 @@ public class LandingPageAndroid extends ScreenBase {
             PASSWORD = properties.getProperty("password");
             INUSERNAME =(String) properties.get("invalidemail");
             INUPASSWORD =(String) properties.get("invalidpassword");
+            FIRSTNAME = (String)properties.get("name");
+            Month = (String) properties.get("Month");
+            DAY = (String) properties.get("Day");
+            YEAR = (String) properties.get("Year");
            // Name= (String) Properties.get("name");
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,8 +97,9 @@ public class LandingPageAndroid extends ScreenBase {
     By Signup_login_page = By.id("com.kodak.steptouch:id/fragment_login_go_to_signup");
     By FullName = By.id("com.kodak.steptouch:id/fragment_signup_full_name");
     By DateOfBirth =By.id("com.kodak.steptouch:id/fragment_signup_birth");
-    By EmailSignup = By.id("com.kodak.steptouch:id/fragment_signup_birth");
-    By Password = By.id("com.kodak.steptouch:id/fragment_signup_password");
+    By EmailSignup = By.id("com.kodak.steptouch:id/fragment_signup_email");
+    By PasswordSignup = By.id("com.kodak.steptouch:id/fragment_signup_password");
+    By OKBtn= By.id("com.kodak.steptouch:id/ok");
     By SignupBtn = By.id("com.kodak.steptouch:id/fragment_signup_create_account");
     By CreateAccount = By.id("com.kodak.steptouch:id/fragment_signup_title_textview");
     By Tap_on_signin_layout = By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.ScrollView/android.widget.LinearLayout");
@@ -338,10 +337,44 @@ public class LandingPageAndroid extends ScreenBase {
 
 
     }
-    public void generateRandomString() {
+    public String generateRandomString() {
         Random randomGenerator = new Random();
         int randomInt = randomGenerator.nextInt(1000);
-        System.out.println(randomInt);
+        String Email = "chordy"+randomInt+"@gmail.com";
+        System.out.println("Email ID :  "+Email);
+        return Email;
+    }
+
+
+    public void Calender_Signup() throws InterruptedException {
+
+        Thread.sleep(300);
+        driver.findElement(By.id("com.kodak.steptouch:id/date_picker_year")).click();
+        driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).setAsVerticalList()" +
+                      ".scrollIntoView(new UiSelector().text("+YEAR+")).flingBackward()"));
+        driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"2000\"]")).click();
+       // driver.findElement(By.xpath("//android.widget.TextView[@content-desc="+YEAR+"]")).click();
+        driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).setAsVerticalList()" +".scrollIntoView(new UiSelector().text("+Month+")).flingBackward()"));
+        driver.findElement(By.xpath("//android.view.View[@content-desc="+Month+"]")).click();
+        driver.findElement(OKBtn).click();
+
+    }
+    public void Signup() throws InterruptedException {
+        driver.findElement(FullName).sendKeys(FIRSTNAME);
+        driver.findElement(DateOfBirth).click();
+        driver.findElement(By.id("com.kodak.steptouch:id/date_picker_year")).click();
+        driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).setAsVerticalList()" +
+                ".scrollIntoView(new UiSelector().text("+YEAR+")).flingBackward()"));
+        driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"2000\"]")).click();
+        // driver.findElement(By.xpath("//android.widget.TextView[@content-desc="+YEAR+"]")).click();
+        driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().scrollable(true)).setAsVerticalList()" +".scrollIntoView(new UiSelector().text("+Month+")).flingBackward()"));
+        driver.findElement(By.xpath("//android.view.View[@content-desc="+Month+"]")).click();
+        driver.findElement(OKBtn).click();
+
+        driver.findElement(EmailSignup).sendKeys(generateRandomString());
+        driver.findElement(PasswordSignup).sendKeys(PASSWORD);
+        driver.findElement(SignupBtn);
+
 
     }
 

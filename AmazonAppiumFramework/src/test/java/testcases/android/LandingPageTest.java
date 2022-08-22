@@ -17,7 +17,7 @@ public class LandingPageTest extends TestBase {
     
 
     @Description("Verifying the Landing Page ")
-    @Test(priority = 1, enabled = true)
+    @Test(priority = 1, enabled = false)
     public void verify_Login_User_Inapp() throws InterruptedException {
 
         System.out.println("Verify the Signin Button");
@@ -30,7 +30,7 @@ public class LandingPageTest extends TestBase {
         LandingPage.exitapp();
 
     }
-    @Test(priority = 2,enabled = true )
+    @Test(priority = 2,enabled = false )
     public void verifyILL() {
     	System.out.println("Verify the functionality of the ill do it later");
     	Assert.assertTrue(LandingPage.VerifyTapill());
@@ -38,7 +38,7 @@ public class LandingPageTest extends TestBase {
         LandingPage.exitapp();
         
     }
-    @Test(priority = 3, enabled = true)
+    @Test(priority = 3, enabled = false)
     public void verify_Login_Btn() {
     	
         System.out.println("Verify the Sign in present button");
@@ -49,7 +49,7 @@ public class LandingPageTest extends TestBase {
     
 
     
-    @Test(priority = 4, enabled = true)
+    @Test(priority = 4, enabled = false)
     public void verifyInvalidEmail() throws InterruptedException {
     	
         System.out.println("Verify the Invaild Email");
@@ -61,7 +61,7 @@ public class LandingPageTest extends TestBase {
         LandingPage.exitapp();
        
     }
-    @Test(priority = 4, enabled = true)
+    @Test(priority = 4, enabled = false)
     public void verifyInvalidPassword(){
     	
         System.out.println("Verify the Invaild Email");
@@ -74,7 +74,7 @@ public class LandingPageTest extends TestBase {
        
     }
     
-    @Test(priority = 5, enabled = true )
+    @Test(priority = 5, enabled = false )
     public void verifyQuicktour_StartBTn() {
 
     	LandingPage.tap_on_ill1();
@@ -85,7 +85,7 @@ public class LandingPageTest extends TestBase {
         LandingPage.Start_App_tour();
         LandingPage.exitapp();
     }
-    @Test(priority = 6, enabled = true )
+    @Test(priority = 6, enabled = false )
     public void verifySignupBt_Login(){
 
         System.out.println("Verify the Signup button on login page");
@@ -95,7 +95,7 @@ public class LandingPageTest extends TestBase {
         LandingPage.exitapp();
 
     }
-    @Test(priority = 7, enabled = true )
+    @Test(priority = 7, enabled = false )
     public void VerifyForgetPassword() throws InterruptedException {
         System.out.println("Verify Forget password email send on email");
         Thread.sleep(3000);
@@ -106,7 +106,7 @@ public class LandingPageTest extends TestBase {
         LandingPage.forget_password_successful();
         LandingPage.exitapp();
     }
-    @Test(priority = 8, enabled = true )
+    @Test(priority = 8, enabled = false )
     public void VerifyForgetPassword_invalidEmail(){
         System.out.println("Verify Forget password with invalid Email id ");
         LandingPage.tapSignInOnLandingPage();
@@ -114,22 +114,13 @@ public class LandingPageTest extends TestBase {
         LandingPage.verify_Invalid_ForgetEmail();
         LandingPage.exitapp();
     }
-    @Test(priority = 9, enabled = true)
-    public void image() throws InterruptedException {
-        LandingPage.tap_on_ill1();
-        LandingPage.accpt_term();
-        LandingPage.Quicktour();
-        LandingPage.verify_StartBtn_isdisplay();
-        LandingPage.verify_Startappbtn_text();
-        LandingPage.Start_App_tour();
-        LandingPage.gallery_Page_Tap();
-        LandingPage.image();
-    }
-    @Test(priority = 10, enabled = true)
+
+    @Test(priority = 9, enabled = false)
     public void randomEmail()  {
         LandingPage.generateRandomString();
-
-
     }
-
+    @Test(priority = 10, enabled = true)
+    public void SignupForm() throws InterruptedException {
+        LandingPage.Signup();
+    }
 }
